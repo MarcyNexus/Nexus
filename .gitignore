@@ -1,0 +1,19 @@
+# dependencies (npm workspaces hoist most of this to the root)
+node_modules/
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# supabase local dev
+supabase/.branches
+supabase/.temp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/*
+!.vscode/extensions.json
