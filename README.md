@@ -2,6 +2,8 @@
 
 Web + mobile app, backed by Supabase (free tier).
 
+📖 **For a detailed, file-by-file explanation of what everything in this repo is and why it exists, see [docs/00-overview.md](./docs/00-overview.md).**
+
 ## Structure
 
 ```
