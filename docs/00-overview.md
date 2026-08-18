@@ -8,6 +8,12 @@ for the file-by-file detail:
 - [02-mobile-app.md](./02-mobile-app.md) — `apps/mobile` (Expo / React Native)
 - [03-shared-package.md](./03-shared-package.md) — `packages/shared`
 - [04-supabase-backend.md](./04-supabase-backend.md) — `supabase/` and the backend itself
+- [05-roles-and-data-model.md](./05-roles-and-data-model.md) — proposed roles, RBAC, and data model (not yet implemented)
+- [06-cookies-and-auth.md](./06-cookies-and-auth.md) — cookie-based session handling (implemented) that the roles/RLS design above will build on
+- [07-database-schema.md](./07-database-schema.md) — the actual migration file implementing the roles/data model design (written, not yet applied to the hosted project)
+- [08-fellow-dashboard.md](./08-fellow-dashboard.md) — `/fellow`, reached via the Navbar's Community dropdown, publicly viewable with mock content data (not gated by login, by design)
+- [09-alumni-dashboard.md](./09-alumni-dashboard.md) — `/alumni`, same conventions as `/fellow`; no migration written yet for its data
+- [10-partner-portal.md](./10-partner-portal.md) — `/partner`, the external hiring-partner-contact role's portal; same conventions, no migration written yet
 
 ---
 

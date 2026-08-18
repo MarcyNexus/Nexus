@@ -1,30 +1,5 @@
 import { Mail, MapPin } from "lucide-react";
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function LinkedinIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-      <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.24 8.5h4.5V23H.24V8.5ZM8.5 8.5h4.31v1.98h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.14c0-1.46-.03-3.35-2.04-3.35-2.04 0-2.36 1.6-2.36 3.25V23H8.5V8.5Z" />
-    </svg>
-  );
-}
-
-function TwitterIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-      <path d="M22 5.9c-.7.32-1.46.53-2.25.63a3.9 3.9 0 0 0 1.72-2.16 7.86 7.86 0 0 1-2.49.95 3.9 3.9 0 0 0-6.75 2.67c0 .3.04.6.1.89A11.07 11.07 0 0 1 1.64 4.7a3.9 3.9 0 0 0 1.21 5.2 3.87 3.87 0 0 1-1.77-.49v.05a3.9 3.9 0 0 0 3.13 3.82 3.9 3.9 0 0 1-1.76.07 3.9 3.9 0 0 0 3.64 2.71A7.83 7.83 0 0 1 0 17.54a11.05 11.05 0 0 0 5.98 1.75c7.17 0 11.1-5.94 11.1-11.1l-.01-.5A7.9 7.9 0 0 0 22 5.9Z" />
-    </svg>
-  );
-}
+import { InstagramIcon, LinkedinIcon, TwitterIcon } from "./icons/BrandIcons";
 
 const JOURNEY_LINKS = [
   "Discover",

@@ -38,10 +38,20 @@ cp apps/mobile/.env.example apps/mobile/.env
 
 ## Running
 
+Run these from the **repo root** (not from `apps/web`) — npm workspaces resolve the
+scripts to the right app.
+
 ```bash
-npm run dev:web       # Next.js dev server
+npm run dev:web       # Next.js dev server → open http://localhost:3000
 npm run dev:mobile    # Expo dev server (scan the QR code with Expo Go, or press a/i/w)
 ```
+
+`npm run dev:web` doesn't require a real Supabase project to boot — the site loads
+and renders fine without `.env.local` (the session-refresh logic in `src/proxy.ts`
+detects missing credentials and no-ops instead of crashing). You only need real
+Supabase credentials once you start wiring up auth or database calls — see
+[docs/06-cookies-and-auth.md](./docs/06-cookies-and-auth.md) for how sessions are
+handled once you do.
 
 ## Supabase
 

@@ -17,10 +17,11 @@ import path for anything under `src/`.
 
 ## What's actually generated vs. what we added
 
-Everything except `.env.example` and `src/lib/supabaseClient.ts` was generated
-automatically by `create-next-app`. Those two files are the only hand-written parts
-of this app so far — this is currently a bare Next.js starter with Supabase wired in,
-not yet a built-out product.
+Everything under `.env.example`, `src/lib/`, `src/proxy.ts`, `src/components/`, and
+the content of `src/app/page.tsx` was hand-written; everything else was generated
+by `create-next-app`. The `src/lib/supabaseClient.ts` this section originally
+described was replaced by the cookie-based clients in `src/lib/supabase/` — see
+below and [06-cookies-and-auth.md](./06-cookies-and-auth.md).
 
 ## File-by-file
 
@@ -41,7 +42,7 @@ produces byte-identical `node_modules` on any machine.
 TypeScript compiler configuration. Notable settings: `moduleResolution: "bundler"`
 (matches how Next.js's bundler actually resolves imports, rather than Node's older
 resolution rules), `paths: { "@/*": ["./src/*"] }` (enables `import x from
-"@/lib/supabaseClient"` instead of relative `../../lib/...` paths), and a `plugins`
+"@/lib/supabase/client"` instead of relative `../../lib/...` paths), and a `plugins`
 entry for `next` which powers in-editor type-checking of things like route params.
 
 ### `next.config.ts`
@@ -114,13 +115,19 @@ block (Tailwind v4's mechanism for exposing custom properties as theme tokens li
 ### `src/app/favicon.ico`
 Default Next.js favicon placeholder — swap for a real Marcy Nexus icon later.
 
-### `src/lib/supabaseClient.ts` *(hand-written)*
-The one Supabase-aware file in this app. Reads the two `NEXT_PUBLIC_*` env vars and
-passes them into `createSupabaseClient` from `@marcy-nexus/shared`, exporting a
-single `supabase` client instance for the rest of the app to import
-(`import { supabase } from "@/lib/supabaseClient"`). Kept intentionally thin — all
-the actual client-construction logic lives in the shared package so mobile can reuse
-it too.
+### `src/lib/supabase/client.ts`, `server.ts`, `proxy.ts` *(hand-written)*
+Cookie-based Supabase clients, replacing an earlier `localStorage`-based
+`src/lib/supabaseClient.ts` (removed). `client.ts` is for Client Components,
+`server.ts` for Server Components/Route Handlers, `proxy.ts` holds the
+`updateSession()` helper called from `src/proxy.ts` on every request. See
+[06-cookies-and-auth.md](./06-cookies-and-auth.md) for the full "why."
+
+### `src/proxy.ts`
+Next.js 16's `proxy.ts` file convention (renamed from `middleware.ts`) — runs
+before every route (per its `matcher`) and refreshes the Supabase session
+cookie via `updateSession()`. No-ops if `NEXT_PUBLIC_SUPABASE_URL`/`_ANON_KEY`
+aren't set, so `npm run dev:web` still boots with no `.env.local`. See
+[06-cookies-and-auth.md](./06-cookies-and-auth.md).
 
 ### `public/*.svg`
 Static assets served as-is at the site root (e.g. `public/next.svg` → `/next.svg`).

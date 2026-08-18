@@ -1,11 +1,27 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+
 const NAV_LINKS = [
   { label: "Discover", href: "#", active: true },
   { label: "Program", href: "#" },
   { label: "Alumni Stories", href: "#" },
   { label: "Capstones", href: "#" },
   { label: "Media Hub", href: "#" },
+];
+
+// Role dashboards live here, not in the main nav — this is how /fellow,
+// /alumni, and /partner get reached today, and where /teacher gets added
+// once it's built (see docs/08-fellow-dashboard.md,
+// docs/09-alumni-dashboard.md, docs/10-partner-portal.md). Each role gets
+// its own top-level route, not nested under a shared /dashboard. "#" = not
+// built yet.
+const COMMUNITY_LINKS = [
+  { label: "Fellows", href: "/fellow" },
+  { label: "Alumni", href: "/alumni" },
+  { label: "Teachers", href: "#" },
+  { label: "Partners", href: "/partner" },
 ];
 
 function Logomark() {
@@ -49,6 +65,53 @@ function ArrowRight() {
   );
 }
 
+function CommunityDropdown() {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={containerRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((isOpen) => !isOpen)}
+        aria-expanded={open}
+        className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+      >
+        Community
+        <ChevronDown />
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-full z-10 mt-2 w-48 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+          {COMMUNITY_LINKS.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
@@ -74,13 +137,7 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <button
-            type="button"
-            className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
-          >
-            Community
-            <ChevronDown />
-          </button>
+          <CommunityDropdown />
         </nav>
 
         <a
